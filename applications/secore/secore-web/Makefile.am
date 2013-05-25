@@ -110,7 +110,7 @@ help:
 # all_javas - Temp file for holding source file list
 all_javas = $(CLASSES)/all.javas
 
-# Gather source file list, excluding n52 which are exclusively compileitd with maven
+# Gather source file list, excluding n52 which are exclusively compiled with maven
 .INTERMEDIATE: $(all_javas)
 $(all_javas):
 	$(MKDIR) $(CLASSES)
