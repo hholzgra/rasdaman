@@ -85,7 +85,7 @@ JDFLAGS   = -sourcepath $(SRC_MAIN)  \
 
 # Create jar
 .PHONY: jar
-jar: compile
+jar: compileit
 	$(MKDIR) $(DIST)
 	$(CD) $(CLASSES); $(JAR) $(JARFLAGS) ../../$(JAR_FILE) .
 
@@ -102,15 +102,15 @@ help:
 # all_javas - Temp file for holding source file list
 all_javas = $(CLASSES)/all.javas
 
-# Gather source file list, excluding n52 which are exclusively compiled with maven
+# Gather source file list, excluding n52 which are exclusively compileitd with maven
 .INTERMEDIATE: $(all_javas)
 $(all_javas):
 	$(MKDIR) $(CLASSES)
 	$(FIND) $(SRC_MAIN) -name '*.java' > $@
 
-# compile - Compile the source
-.PHONY: compile
-compile: $(all_javas) $(GEN_DOCS)
+# compileit - Compile the source
+.PHONY: compileit
+compileit: $(all_javas) $(GEN_DOCS)
 	$(MKDIR) $(BUILD)
 	$(JAVAC) $(JFLAGS) @$<
 

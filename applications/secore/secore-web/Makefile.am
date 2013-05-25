@@ -90,7 +90,7 @@ JDFLAGS   = -sourcepath $(SRC_MAIN)  \
 
 # Create war
 .PHONY: war
-war: compile
+war: compileit
 	$(MKDIR) $(DIST)
 	$(CD) $(WEB); $(JAR) $(JARFLAGS) ../../$(WAR) .
 
@@ -110,15 +110,15 @@ help:
 # all_javas - Temp file for holding source file list
 all_javas = $(CLASSES)/all.javas
 
-# Gather source file list, excluding n52 which are exclusively compiled with maven
+# Gather source file list, excluding n52 which are exclusively compileitd with maven
 .INTERMEDIATE: $(all_javas)
 $(all_javas):
 	$(MKDIR) $(CLASSES)
 	$(FIND) $(SRC_MAIN) $(TEST) -name '*.java' > $@
 
-# compile - Compile the source
-.PHONY: compile
-compile: $(all_javas) $(GEN_DOCS)
+# compileit - Compile the source
+.PHONY: compileit
+compileit: $(all_javas) $(GEN_DOCS)
 	$(MKDIR) $(BUILD)
 	$(CP) $(SRC_WEB)/* $(WEB)
 	$(CP) $(SECORE_CORE)/etc $(WEB)
@@ -152,7 +152,7 @@ clean:
 
 # build jar file
 .PHONY: jar
-jar: compile
+jar: compileit
 	$(CD) $(CLASSES); $(JAR) $(JARFLAGS) ../../../dist/$(NAME).jar .
 
 all: war
